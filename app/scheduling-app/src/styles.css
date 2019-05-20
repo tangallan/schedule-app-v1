@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+.wide-btn {
+    width: 300px;
+}
+
+@media (max-width: 840px) {
+    .wide-btn {
+        width : 200px !important;
+    }
+}
