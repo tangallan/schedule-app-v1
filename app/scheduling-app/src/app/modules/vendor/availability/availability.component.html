@@ -1,3 +1,39 @@
-<p>
-  availability works!
-</p>
+<div class="mt-2">
+    <a class="btn btn-link">
+      Home
+    </a>
+</div>
+<div class="text-center">
+  <h3>
+    My Current Availability Settings
+  </h3>
+  <button class="btn btn-primary btn-sm">Edit</button>
+  <hr />
+</div>
+
+<div *ngIf="vendorAvailMapped">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of dayAvailabilites">
+        <td>{{ d.day }}</td>
+        <td>
+          <div *ngIf="vendorAvailMapped[d.dayOfWeek]">
+            {{vendorAvailMapped[d.dayOfWeek].fromTime}}
+          </div>
+        </td>
+        <td>
+          <div *ngIf="vendorAvailMapped[d.dayOfWeek]">
+              {{vendorAvailMapped[d.dayOfWeek].toTime}}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
