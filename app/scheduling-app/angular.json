@@ -26,7 +26,8 @@
               "src/styles.css",
               "node_modules/spectre.css/dist/spectre.css",
               "node_modules/spectre.css/dist/spectre-icons.css",
-              "node_modules/spectre.css/dist/spectre-exp.css"
+              "node_modules/spectre.css/dist/spectre-exp.css",
+              "node_modules/angular-calendar/css/angular-calendar.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true
