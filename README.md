@@ -1,2 +1,2 @@
 # schedule-app-v1
-Scheduling App to practice
+Scheduling App built with .net core & angular
