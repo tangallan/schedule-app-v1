@@ -90,9 +90,13 @@ namespace ScheduleApp.Domain.Repositories
         }
 
 
-        public Task AddServiceAsync(Guid vendorId, VendorServiceDto service)
+        public async Task AddServiceAsync(Guid vendorId, VendorServiceDto service)
         {
-            throw new NotImplementedException();
+            service.VendorId = vendorId;
+            var entity = service.ToEntity();
+            var savedEntity = _scheduleAppContext.VendorServices.Add(entity);
+            await _scheduleAppContext.SaveChangesAsync();
+            service.Id = savedEntity.Entity.Id;
         }
 
         public Task RemoveServiceAsync(Guid vendorId, int vendorServiceId)

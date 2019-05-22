@@ -15,5 +15,12 @@ namespace ScheduleApp.Core.Extensions.VendorExtensions
 
             return Mapper.Map<VendorAvailability>(vendorAvailabilityDto);
         }
+
+        public static VendorService ToEntity(this VendorServiceDto vendorServiceDto)
+        {
+            if (vendorServiceDto == null) return null;
+
+            return Mapper.Map<VendorService>(vendorServiceDto);
+        }
     }
 }

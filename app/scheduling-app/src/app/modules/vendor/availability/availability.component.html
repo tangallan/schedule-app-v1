@@ -1,17 +1,25 @@
 <div class="mt-2">
-    <a class="btn btn-link">
-      Home
-    </a>
+  <a class="btn btn-link" [routerLink]="['/vendor']">
+    Home
+  </a>
+  <a class="btn btn-link" [routerLink]="['/vendor', 'settings']">
+    Settings
+  </a>
 </div>
 <div class="text-center">
   <h3>
     My Current Availability Settings
   </h3>
-  <button class="btn btn-primary btn-sm">Edit</button>
+  <button class="btn btn-primary btn-sm" *ngIf="!isEditing" (click)="editAvailability()">Edit</button>
+  <button class="btn btn-primary btn-sm" *ngIf="isEditing" (click)="cancelEditAvailability()">Cancel</button>
   <hr />
 </div>
 
-<div *ngIf="vendorAvailMapped">
+<div class="toast toast-error" *ngIf="error">
+  Error! Please try again.
+</div>
+
+<div *ngIf="vendorAvailMapped && !isEditing">
   <table class="table">
     <thead>
       <tr>
@@ -25,15 +33,58 @@
         <td>{{ d.day }}</td>
         <td>
           <div *ngIf="vendorAvailMapped[d.dayOfWeek]">
-            {{vendorAvailMapped[d.dayOfWeek].fromTime}}
+            {{ vendorAvailMapped[d.dayOfWeek].fromTime }}
           </div>
         </td>
         <td>
           <div *ngIf="vendorAvailMapped[d.dayOfWeek]">
-              {{vendorAvailMapped[d.dayOfWeek].toTime}}
+            {{ vendorAvailMapped[d.dayOfWeek].toTime }}
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div *ngIf="vendorAvailMapped && isEditing" class="columns">
+  <div class="column col-12 col-mr-auto col-ml-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Day</th>
+          <th>From</th>
+          <th>To</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of dayAvailabilites">
+          <td>
+            <input type="checkbox" name="{{ d.dayOfWeek }}" [checked]="vendorAvailMapped[d.dayOfWeek]" (change)="toggleAvailability($event, d.dayOfWeek)" />
+          </td>
+          <td>{{ d.day }}</td>
+          <td>
+            <div class="form-group">
+              <select class="form-select" [disabled]="!vendorAvailMapped[d.dayOfWeek]" (change)="onTimeSelect($event, d.dayOfWeek, 'fromTime')">
+                <option>Choose an option</option>
+                <option *ngFor="let t of hours" [value]="t" [selected]="t === vendorAvailMapped[d.dayOfWeek]?.fromTime">{{ t }}</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="form-group">
+              <select class="form-select" [disabled]="!vendorAvailMapped[d.dayOfWeek]" (change)="onTimeSelect($event, d.dayOfWeek, 'toTime')">
+                <option value="">Choose an option</option>
+                <option *ngFor="let t of hours" [value]="t" [selected]="t === vendorAvailMapped[d.dayOfWeek]?.toTime">{{ t }}</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="loading" [hidden]="!vendorAvailMapped[d.dayOfWeek] || !(vendorAvailMapped[d.dayOfWeek] && vendorAvailMapped[d.dayOfWeek].saving)"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

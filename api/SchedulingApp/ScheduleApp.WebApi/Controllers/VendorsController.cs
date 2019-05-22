@@ -69,6 +69,16 @@ namespace ScheduleApp.WebApi.Controllers
             return vendorAvailabilityDto;
         }
 
+        // POST api/vendors/{id}/services
+        [HttpPost]
+        [Route("{id}/services")]
+        public async Task<ActionResult<VendorServiceDto>> CreatNewService(Guid id,  VendorServiceDto vendorService)
+        {
+            await _vendorRepository.AddServiceAsync(id, vendorService);
+
+            return vendorService;
+        }
+
         // DELETE api/vendors/{id}/availability/{dayofweek}
         [HttpDelete]
         [Route("{id}/availability/{dayofweek}")]

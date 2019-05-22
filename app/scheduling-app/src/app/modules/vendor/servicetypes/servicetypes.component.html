@@ -1,3 +1,57 @@
-<p>
-  servicetypes works!
-</p>
+<div class="mt-2">
+  <a class="btn btn-link" [routerLink]="['/vendor']">
+    Home
+  </a>
+  <a class="btn btn-link" [routerLink]="['/vendor', 'settings']">
+    Settings
+  </a>
+</div>
+<div class="text-center">
+  <h3>
+    Service Types
+  </h3>
+  <button class="btn btn-primary btn-sm" *ngIf="!creatingNew" (click)="toggleCreateNewServiceType()">Create New</button>
+  <button class="btn btn-primary btn-sm" *ngIf="creatingNew" (click)="toggleCreateNewServiceType()">Exit</button>
+  <hr />
+</div>
+
+<div class="toast toast-success" *ngIf="success">
+  Success!
+</div>
+
+<div class="toast toast-error" *ngIf="errored">
+  <button class="btn btn-clear float-right"></button>
+  Error!
+</div>
+
+<div *ngIf="!creatingNew" class="mt-2">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Service Types</th>
+        <th>Avg Performance Time</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of allVendorServices">
+        <td>
+          {{ d.serviceType }}
+        </td>
+        <td>{{ d.timeScaleTotal }} {{ d.timeScale }}</td>
+        <td>
+          {{ d.price }}
+        </td>
+        <td>
+            <button class="btn btn-link" (click)="editServiceType(d)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="creatingNew" class="mt-2">
+  <h4>Service Type</h4>
+  <app-vendorservice-form [vendorService]="editingVendorService" [saving]="saving" (createdNewVendorService)="createNewServiceType($event)"></app-vendorservice-form>
+</div>
