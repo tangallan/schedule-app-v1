@@ -104,9 +104,17 @@ namespace ScheduleApp.Domain.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateServiceAsync(Guid vendorId, VendorServiceDto service)
+        public async Task UpdateServiceAsync(VendorServiceDto service)
         {
-            throw new NotImplementedException();
+            var data = await _scheduleAppContext.VendorServices.FirstOrDefaultAsync(f => f.Id == service.Id);
+            if (data == null) throw new ArgumentException("Vendor service type does not exist.");
+
+            data.ServiceType = service.ServiceType;
+            data.TimeScale = service.TimeScale;
+            data.TimeScaleTotal = service.TimeScaleTotal;
+            data.Price = service.Price;
+
+            await _scheduleAppContext.SaveChangesAsync();
         }
     }
 }

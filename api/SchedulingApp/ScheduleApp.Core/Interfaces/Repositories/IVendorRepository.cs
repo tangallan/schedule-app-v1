@@ -17,7 +17,7 @@ namespace ScheduleApp.Core.Interfaces.Repositories
         Task RemoveAvailabilityAsync(Guid vendorId, DayOfWeek dayOfWeek);
 
         Task AddServiceAsync(Guid vendorId, VendorServiceDto service);
-        Task UpdateServiceAsync(Guid vendorId, VendorServiceDto service);
+        Task UpdateServiceAsync(VendorServiceDto service);
         Task RemoveServiceAsync(Guid vendorId, int vendorServiceId);
     }
 }

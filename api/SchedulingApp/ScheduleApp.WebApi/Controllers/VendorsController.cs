@@ -70,9 +70,21 @@ namespace ScheduleApp.WebApi.Controllers
         }
 
         // POST api/vendors/{id}/services
+        [HttpPut]
+        [Route("{id}/services")]
+        public async Task<ActionResult<VendorServiceDto>> UpdateService(Guid id, VendorServiceDto vendorService)
+        {
+            if (id != vendorService.VendorId) return Unauthorized();
+
+            await _vendorRepository.UpdateServiceAsync(vendorService);
+
+            return vendorService;
+        }
+
+        // POST api/vendors/{id}/services
         [HttpPost]
         [Route("{id}/services")]
-        public async Task<ActionResult<VendorServiceDto>> CreatNewService(Guid id,  VendorServiceDto vendorService)
+        public async Task<ActionResult<VendorServiceDto>> CreatNewService(Guid id,  [FromBody]VendorServiceDto vendorService)
         {
             await _vendorRepository.AddServiceAsync(id, vendorService);
 

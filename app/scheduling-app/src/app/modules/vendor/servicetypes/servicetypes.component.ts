@@ -42,17 +42,26 @@ export class ServicetypesComponent implements OnInit {
   }
 
   createNewServiceType(cmpEvent) {
-    const newVs: VendorService = cmpEvent.vendorService;
+    const currentVS: VendorService = cmpEvent.vendorService;
     const form: NgForm = cmpEvent.form;
     const isEdit = cmpEvent.isEdit;
 
     this.resetValidState();
 
-    if(isEdit) {
-      this.creatingNew = false;
+    if (isEdit) {
+      this.saving = true;
+      this.vendorService.updateService(this.vendorId, currentVS)
+        .subscribe(res => {
+          this.saving = false;
+          this.creatingNew = false;
+          this.showHideSuccess();
+        }, error => {
+          this.errored = true;
+          this.saving = false;
+        });
     } else {
       this.saving = true;
-      this.vendorService.createNewService(this.vendorId, newVs)
+      this.vendorService.createNewService(this.vendorId, currentVS)
         .subscribe(res => {
           this.allVendorServices.push(res);
           this.saving = false;

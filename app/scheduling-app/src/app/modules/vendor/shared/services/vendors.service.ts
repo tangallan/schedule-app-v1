@@ -74,4 +74,14 @@ export class VendorsService {
         })
       );
   }
+
+  updateService(vendorid, vendorService: VendorService): Observable<VendorService> {
+    return this.http.put(`https://localhost:5001/api/vendors/${vendorid}/services`, vendorService)
+      .pipe(
+        map((json: any) => {
+          const vs = new VendorService().deserialize(json);
+          return vs;
+        })
+      );
+  }
 }
