@@ -1,11 +1,9 @@
 ﻿using ScheduleApp.Core.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ScheduleApp.Core.ScheduleAppEntities
+namespace ScheduleApp.Core.Dtos
 {
-    public class CustomerAppointment
+    public class CustomerAppointmentDto
     {
         public int Id { get; set; }
 
@@ -27,6 +25,6 @@ namespace ScheduleApp.Core.ScheduleAppEntities
 
         public string Notes { get; set; }
 
-        public virtual VendorService VendorService { get; set; }
+        public string VendorServiceType { get; set; }
     }
 }

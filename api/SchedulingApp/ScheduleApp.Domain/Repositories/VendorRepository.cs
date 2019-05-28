@@ -89,7 +89,6 @@ namespace ScheduleApp.Domain.Repositories
             }
         }
 
-
         public async Task AddServiceAsync(Guid vendorId, VendorServiceDto service)
         {
             service.VendorId = vendorId;
@@ -99,9 +98,16 @@ namespace ScheduleApp.Domain.Repositories
             service.Id = savedEntity.Entity.Id;
         }
 
-        public Task RemoveServiceAsync(Guid vendorId, int vendorServiceId)
+        public async Task RemoveServiceAsync(Guid vendorId, int vendorServiceId)
         {
-            throw new NotImplementedException();
+            var data = await _scheduleAppContext.VendorServices.FirstOrDefaultAsync(f => f.Id == vendorServiceId);
+            if (data == null) throw new ArgumentException("Vendor service type does not exist.");
+            if (data.VendorId != vendorId) throw new Exception("Unable to delete this service, cause user does not have access.");
+            
+            // TODO: validate customer appointments
+
+            _scheduleAppContext.VendorServices.Remove(data);
+            await _scheduleAppContext.SaveChangesAsync();
         }
 
         public async Task UpdateServiceAsync(VendorServiceDto service)

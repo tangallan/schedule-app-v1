@@ -84,4 +84,8 @@ export class VendorsService {
         })
       );
   }
+
+  removeService(vendorid, vendorService: VendorService) {
+    return this.http.delete(`https://localhost:5001/api/vendors/${vendorid}/services/${vendorService.id}`);
+  }
 }

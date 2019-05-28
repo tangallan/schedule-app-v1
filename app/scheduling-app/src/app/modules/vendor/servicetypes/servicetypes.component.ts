@@ -77,9 +77,18 @@ export class ServicetypesComponent implements OnInit {
   }
 
   editServiceType(serviceType: VendorService) {
-    console.log(serviceType);
     this.editingVendorService = serviceType;
     this.creatingNew = true;
+  }
+
+  deleteServiceType(serviceType: VendorService) {
+    this.errored = false;
+    this.vendorService.removeService(this.vendorId, serviceType)
+      .subscribe(resp => {
+        this.allVendorServices = this.allVendorServices.filter(f => f.id !== serviceType.id);
+      }, error => {
+        this.errored = true;
+      });
   }
 
   private resetValidState() {

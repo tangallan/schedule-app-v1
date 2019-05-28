@@ -44,6 +44,7 @@ namespace ScheduleApp.WebApi
             services.AddDbContext<ScheduleAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ScheduleAppDatabase")));
 
             services.AddTransient<IVendorRepository, VendorRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
 
             Mapper.Initialize(config =>
             {

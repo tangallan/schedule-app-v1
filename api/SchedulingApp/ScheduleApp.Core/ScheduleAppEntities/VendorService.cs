@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ScheduleApp.Core.ScheduleAppEntities
 {
@@ -17,5 +18,7 @@ namespace ScheduleApp.Core.ScheduleAppEntities
         public decimal Price { get; set; }
 
         public virtual Vendor Vendor { get; set; }
+
+        public ICollection<CustomerAppointment> CustomerAppointments { get; set; }
     }
 }

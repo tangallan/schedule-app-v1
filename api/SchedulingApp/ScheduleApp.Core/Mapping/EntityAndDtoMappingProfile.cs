@@ -14,6 +14,11 @@ namespace ScheduleApp.Core.Mapping
             CreateMap<Vendor, VendorDto>().ReverseMap();
             CreateMap<VendorAvailability, VendorAvailabilityDto>().ReverseMap();
             CreateMap<VendorService, VendorServiceDto>().ReverseMap();
+
+            CreateMap<CustomerAppointment, CustomerAppointmentDto>()
+                .ForMember(m => m.VendorServiceType, o => o.MapFrom(m => m.VendorService != null ? m.VendorService.ServiceType  : ""));
+
+            CreateMap<CustomerAppointmentDto, CustomerAppointment>();
         }
     }
 }

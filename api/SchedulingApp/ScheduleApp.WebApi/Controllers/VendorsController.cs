@@ -100,5 +100,15 @@ namespace ScheduleApp.WebApi.Controllers
 
             return Ok();
         }
+
+        // DELETE api/vendors/{id}/services/{vendorServiceId}
+        [HttpDelete]
+        [Route("{id}/services/{vendorServiceId}")]
+        public async Task<ActionResult> RemoveService(Guid id, int vendorServiceId)
+        {
+            await _vendorRepository.RemoveServiceAsync(id, vendorServiceId);
+
+            return Ok();
+        }
     }
 }

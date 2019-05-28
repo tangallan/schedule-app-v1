@@ -22,12 +22,15 @@ namespace ScheduleApp.Data.EfCore
 
         public virtual DbSet<VendorAvailability> VendorAvailabilities { get; set; }
 
+        public virtual DbSet<CustomerAppointment> CustomerAppointments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // add your own confguration here
             modelBuilder.ApplyConfiguration(new VendorConfig());
             modelBuilder.ApplyConfiguration(new VendorAvailabilityConfig());
             modelBuilder.ApplyConfiguration(new VendorServiceConfig());
+            modelBuilder.ApplyConfiguration(new CustomerAppointmentConfig());
         }
     }
 }

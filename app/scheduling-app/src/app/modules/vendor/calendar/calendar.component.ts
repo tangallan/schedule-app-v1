@@ -17,10 +17,27 @@ export class CalendarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let d1 = addDays(new Date(), -1);
+    d1 = addHours(d1, -3);
+    this.events.push({
+      start: d1,
+      title: 'Test 1',
+      actions: [
+        {
+          label: 'View',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.handleEvent(event);
+          }
+        }
+      ]
+    });
   }
 
   toggleCalendarView(view) {
     this.view = view;
   }
 
+  handleEvent(event: CalendarEvent) {
+    console.log(event);
+  }
 }

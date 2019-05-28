@@ -27,6 +27,8 @@ namespace ScheduleApp.Data.EfCore.Configurations
                 .HasOne(h => h.Vendor)
                 .WithMany(h => h.VendorServices)
                 .HasForeignKey(h => h.VendorId);
+
+            builder.HasMany(p => p.CustomerAppointments).WithOne(t => t.VendorService);
         }
     }
 }
