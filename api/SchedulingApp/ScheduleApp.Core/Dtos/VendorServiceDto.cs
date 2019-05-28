@@ -15,5 +15,8 @@ namespace ScheduleApp.Core.Dtos
         public string TimeScale { get; set; }
 
         public decimal Price { get; set; }
+
+        //
+        public VendorDto Vendor { get; set; }
     }
 }

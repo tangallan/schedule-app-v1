@@ -1,0 +1,27 @@
+<div *ngIf="!customerLoaded" class="loading loading-lg"></div>
+
+<div class="card" *ngIf="customerLoaded">
+  <div class="card-body">
+    <h3 class="text-center">Search Services</h3>
+
+    <input class="form-input mt-2" type="text" id="Text" name="Text" placeholder="Vendor name, type of service, etc." [(ngModel)]="serviceSearch.text" #searchText="ngModel" />
+
+    <input class="form-input mt-2" type="text" id="Location" name="Location" placeholder="Zip Code, or City & State" [(ngModel)]="serviceSearch.location" #locationText="ngModel" />
+
+    <div class="form-group mt-2">
+      <select id="TimeScale" name="TimeScale" class="form-select" [(ngModel)]="serviceSearch.waitTime" #waitTime="ngModel">
+        <option value="">Any wait time</option>
+        <option value="0.5">Less than 30 Minutes</option>
+        <option value="1">Less than 1 hour</option>
+        <option value="2">Less than 2 hours</option>
+      </select>
+    </div>
+
+    <button type="button" (click)="searchServices()" class="btn btn-primary col-12 mt-2">Search</button>
+  </div>
+</div>
+
+
+<div class="mt-2">
+  <app-service-listings></app-service-listings>
+</div>

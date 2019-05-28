@@ -1,6 +1,7 @@
 ﻿using ScheduleApp.Core.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ScheduleApp.Core.Interfaces.Repositories
@@ -16,6 +17,7 @@ namespace ScheduleApp.Core.Interfaces.Repositories
         Task UpdateAvailablityAsync(Guid vendorId, VendorAvailabilityDto vendorAvailability);
         Task RemoveAvailabilityAsync(Guid vendorId, DayOfWeek dayOfWeek);
 
+        Task<List<VendorServiceDto>> SearchServices(string text);
         Task AddServiceAsync(Guid vendorId, VendorServiceDto service);
         Task UpdateServiceAsync(VendorServiceDto service);
         Task RemoveServiceAsync(Guid vendorId, int vendorServiceId);

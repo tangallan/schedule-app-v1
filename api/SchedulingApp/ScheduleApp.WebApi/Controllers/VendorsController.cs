@@ -48,16 +48,6 @@ namespace ScheduleApp.WebApi.Controllers
             return result;
         }
 
-        // GET api/vendors/{id}/services
-        [HttpGet]
-        [Route("{id}/services")]
-        public async Task<ActionResult<List<VendorServiceDto>>> GetServices(Guid id)
-        {
-            var result = await _vendorRepository.GetServicesAsync(id);
-
-            return result;
-        }
-
         // PUT api/vendors/{id}/availability
         [HttpPut]
         [Route("{id}/availability")]
@@ -67,6 +57,26 @@ namespace ScheduleApp.WebApi.Controllers
             vendorAvailabilityDto.VendorId = id;
 
             return vendorAvailabilityDto;
+        }
+
+        // GET api/vendors/services/search
+        [HttpGet]
+        [Route("services/search")]
+        public async Task<ActionResult<List<VendorServiceDto>>> SearchServices(string text)
+        {
+            var result = await _vendorRepository.SearchServices(text);
+
+            return result;
+        }
+
+        // GET api/vendors/{id}/services
+        [HttpGet]
+        [Route("{id}/services")]
+        public async Task<ActionResult<List<VendorServiceDto>>> GetServices(Guid id)
+        {
+            var result = await _vendorRepository.GetServicesAsync(id);
+
+            return result;
         }
 
         // POST api/vendors/{id}/services

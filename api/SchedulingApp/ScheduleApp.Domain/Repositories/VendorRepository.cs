@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ScheduleApp.Domain.Repositories
@@ -121,6 +122,17 @@ namespace ScheduleApp.Domain.Repositories
             data.Price = service.Price;
 
             await _scheduleAppContext.SaveChangesAsync();
+        }
+
+        public async Task<List<VendorServiceDto>> SearchServices(string text)
+        {
+            var data = await _scheduleAppContext.VendorServices
+                .Where(w => w.Vendor.CompanyName.Contains(text) || w.ServiceType.Contains(text))
+                .Include(i => i.Vendor)
+                .ToListAsync();
+
+
+            return data.ToDtos();
         }
     }
 }
