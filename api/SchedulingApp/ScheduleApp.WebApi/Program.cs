@@ -19,6 +19,12 @@ namespace ScheduleApp.WebApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddJsonFile("appsettings.json");
+                    builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
+                    builder.AddEnvironmentVariables();
+                })
                 .UseStartup<Startup>();
     }
 }

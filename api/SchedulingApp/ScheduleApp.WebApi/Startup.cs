@@ -70,7 +70,7 @@ namespace ScheduleApp.WebApi
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseHttpsRedirection();
-            app.UseCors(CorsPolicyName);            
+            app.UseCors(CorsPolicyName);
             app.UseMvc();
         }
     }
